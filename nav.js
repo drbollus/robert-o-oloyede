@@ -40,7 +40,7 @@ class SiteHeader extends HTMLElement {
       <header class="site-header">
         <div class="wrap nav-inner">
           <a class="brandmark" href="index.html" ${currentPage === "home" ? 'aria-current="page"' : ""}>
-            <span class="dot"></span>R. OLOYEDE
+            <span class="dot"></span>ROBERT O. OLOYEDE
           </a>
           <nav><ul>${NAV_LINKS.map((l) => `<li>${linkHTML(l, currentPage)}</li>`).join("")}</ul></nav>
           <a class="btn-ghost nav-cta" href="contact.html" ${currentPage === "contact" ? 'aria-current="page"' : ""}>Get in touch</a>
