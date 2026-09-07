@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Dr. Robert Oloyede</title>
+<meta name="description" content="Get in touch with Dr. Robert Oloyede for speaking engagements, advisory work, or media inquiries." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+  /* ---------- Page-specific: Contact only ---------- */
+  /* No 3D icons here on purpose — this page should feel fast and frictionless. */
+  .contact-grid{ display:grid; grid-template-columns: 4fr 6fr; gap:60px; align-items:start; }
+  @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; gap:36px; } }
+
+  .contact-info-item{ padding:20px 0; border-bottom:1px solid var(--hairline); }
+  .contact-info-item .label{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem; color:var(--brass-light); display:block; margin-bottom:6px; }
+  .contact-info-item a{ text-decoration:none; font-size:1.05rem; }
+  .contact-info-item a:hover{ color:var(--brass-light); }
+
+  form.contact-form{ display:flex; flex-direction:column; gap:22px; }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field label{ font-size:0.85rem; opacity:0.75; }
+  .field input, .field select, .field textarea{
+    background:var(--steel); border:1px solid var(--hairline); color:var(--gauge-white);
+    padding:13px 16px; border-radius:2px; font-family:'Inter', sans-serif; font-size:0.95rem;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--brass);
+  }
+  .field textarea{ resize:vertical; min-height:120px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:560px){ .form-row{ grid-template-columns:1fr; } }
+  .form-status{ font-size:0.9rem; margin-top:4px; display:none; }
+  .form-status.success{ display:block; color:#8FBF8A; }
+  .form-status.error{ display:block; color:var(--rust); }
+</style>
+</head>
+<body>
+
+<site-header page="contact"></site-header>
+
+<main id="top">
+
+  <!-- PAGE HEADER -->
+  <section class="page-header" style="padding-bottom:60px;">
+    <div class="wrap">
+      <div class="eyebrow-line"><span class="rule"></span><span class="mono">CONTACT</span></div>
+      <h1>Let's talk.</h1>
+      <p class="lede">For speaking engagements, advisory work, or press inquiries — reach out directly or use the form below.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT GRID -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap contact-grid">
+
+      <div>
+        <div class="contact-info-item">
+          <span class="label">EMAIL</span>
+          <a href="mailto:contact@example.com">contact@example.com</a>
+        </div>
+        <div class="contact-info-item">
+          <span class="label">LINKEDIN</span>
+          <a href="https://www.linkedin.com/in/robert-oloyede-mba-mnse-r-eng-a0519724/" target="_blank" rel="noopener">linkedin.com/in/robert-oloyede</a>
+        </div>
+        <div class="contact-info-item">
+          <span class="label">BASED IN</span>
+          <span>Lagos, Nigeria</span>
+        </div>
+        <div class="contact-info-item" style="border-bottom:none;">
+          <span class="label">RESPONSE TIME</span>
+          <span>Typically within 2–3 business days</span>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="organization">Organization</label>
+            <input type="text" id="organization" name="organization" autocomplete="organization" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="topic">What's this about?</label>
+          <select id="topic" name="topic">
+            <option value="speaking">Speaking engagement</option>
+            <option value="advisory">Advisory / consulting</option>
+            <option value="press">Press / media</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary" id="contact-submit">Send message</button>
+          <p class="form-status" id="form-status"></p>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+</main>
+
+<site-footer></site-footer>
+<script src="assets/js/nav.js" defer></script>
+
+<script>
+  /* --------------------------------------------------------------------
+     Contact form submission.
+
+     This currently just simulates a successful send so the page is fully
+     functional to click through. Before going live, wire FORM_ENDPOINT to
+     a real backend — the two easiest options on Vercel:
+
+       1. Formspree (zero backend code):
+          - Create a form at formspree.io, copy your endpoint
+            (looks like "https://formspree.io/f/xxxxxxx")
+          - Set FORM_ENDPOINT below to that URL
+          - Change the fetch body to FormData instead of JSON:
+              body: new FormData(form)
+            and remove the "Content-Type" header (browser sets it for you)
+
+       2. A Vercel serverless function (more control, e.g. custom email
+          template via Resend):
+          - Create /api/contact.js in the project root using the Vercel
+            Node.js runtime, call Resend's API from inside it
+          - Set FORM_ENDPOINT below to "/api/contact"
+          - Keep the JSON fetch below as-is — it already POSTs the right shape
+  -------------------------------------------------------------------- */
+  const FORM_ENDPOINT = null; // TODO: set to your Formspree URL or "/api/contact"
+
+  const form = document.getElementById("contact-form");
+  const submitBtn = document.getElementById("contact-submit");
+  const status = document.getElementById("form-status");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.className = "form-status";
+    status.textContent = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      if (!FORM_ENDPOINT) {
+        // No backend wired up yet — simulate success so the page demos cleanly.
+        await new Promise((r) => setTimeout(r, 600));
+        console.log("Contact form (demo mode, no FORM_ENDPOINT set):", data);
+      } else {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("Request failed");
+      }
+      status.textContent = "Thanks — your message has been sent. Dr. Oloyede's team will be in touch shortly.";
+      status.classList.add("success");
+      form.reset();
+    } catch (err) {
+      status.textContent = "Something went wrong sending that. Please try emailing directly instead.";
+      status.classList.add("error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send message";
+    }
+  });
+</script>
+
+</body>
+</html>
