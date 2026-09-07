@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Robert Oloyede — Physical Asset Management</title>
+<meta name="description" content="Dr. Robert Oloyede, DBA — Deputy Group Managing Director, Divcon Group. Author of the Six-Dimensional Framework for Physical Asset Management in Nigeria's upstream oil & gas sector." />
+
+<!-- Fonts: Fraunces (display), Inter (body), IBM Plex Mono (data) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0E1414;
+    --steel:#1B2426;
+    --steel-2:#232F31;
+    --paper:#F2EFE6;
+    --brass:#B8863B;
+    --brass-light:#D2A65C;
+    --rust:#C4571E;
+    --gauge-white:#E8E4D8;
+    --graphite:#3A4547;
+    --hairline: rgba(232,228,216,0.14);
+    --hairline-paper: rgba(58,69,71,0.16);
+    --max: 1240px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--gauge-white);
+    font-family:'Inter', system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 32px;
+  }
+  @media (max-width:640px){ .wrap{ padding:0 20px; } }
+
+  /* ---------- Top bar ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,20,20,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .brandmark{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:0.01em;
+    display:flex; align-items:center; gap:10px;
+    text-decoration:none;
+  }
+  .brandmark .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--brass);
+    box-shadow:0 0 8px var(--brass);
+    display:inline-block;
+  }
+  nav ul{
+    list-style:none; display:flex; gap:36px; margin:0; padding:0;
+  }
+  nav a{
+    text-decoration:none;
+    font-size:0.9rem;
+    color:var(--gauge-white);
+    opacity:0.75;
+    transition:opacity .2s ease;
+  }
+  nav a:hover{ opacity:1; }
+  .nav-cta{
+    border:1px solid var(--brass);
+    color:var(--brass-light) !important;
+    opacity:1 !important;
+    padding:9px 18px;
+    border-radius:2px;
+    font-size:0.85rem !important;
+    transition:background .2s ease, color .2s ease;
+  }
+  .nav-cta:hover{ background:var(--brass); color:var(--ink) !important; }
+  .nav-toggle{ display:none; }
+  @media (max-width:860px){
+    nav ul{ display:none; }
+    .nav-toggle{ display:block; background:none; border:none; color:var(--gauge-white); font-size:1.4rem; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:120px 0 100px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 7fr 5fr;
+    gap:40px;
+    align-items:center;
+    position:relative;
+    z-index:2;
+  }
+  @media (max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero{ padding:90px 0 70px; }
+  }
+  .eyebrow-line{
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:28px;
+  }
+  .eyebrow-line .rule{ width:40px; height:1px; background:var(--brass); }
+  .eyebrow-line span{
+    font-size:0.85rem; color:var(--brass-light); font-family:'IBM Plex Mono', monospace;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.9rem);
+    max-width:15ch;
+  }
+  .hero p.lede{
+    margin-top:26px;
+    font-size:1.15rem;
+    max-width:46ch;
+    color:var(--gauge-white);
+    opacity:0.86;
+  }
+  .hero-role{
+    margin-top:18px;
+    font-size:0.98rem;
+    opacity:0.66;
+  }
+  .cta-row{
+    display:flex; gap:16px; margin-top:42px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 26px;
+    border-radius:2px;
+    font-size:0.95rem;
+    text-decoration:none;
+    font-weight:500;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{
+    background:var(--brass);
+    color:var(--ink);
+  }
+  .btn-primary:hover{ background:var(--brass-light); }
+  .btn-ghost{
+    border:1px solid var(--hairline);
+    color:var(--gauge-white);
+  }
+  .btn-ghost:hover{ border-color:var(--brass); }
+
+  #hero-canvas-wrap{
+    position:relative;
+    height:420px;
+  }
+  @media (max-width:900px){
+    #hero-canvas-wrap{ height:260px; margin-top:8px; }
+  }
+  #hero-canvas-wrap canvas{ position:absolute; inset:0; width:100%; height:100%; }
+
+  /* ---------- Credibility strip ---------- */
+  .strip{
+    border-top:1px solid var(--hairline);
+    border-bottom:1px solid var(--hairline);
+    padding:26px 0;
+  }
+  .strip-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.02em;
+    color:var(--gauge-white);
+    opacity:0.55;
+  }
+
+  /* ---------- Framework teaser ---------- */
+  .section{ padding:110px 0; }
+  .section-paper{
+    background:var(--paper);
+    color:var(--graphite);
+  }
+  .section-paper h2, .section-paper h3{ color:var(--ink); }
+  .section-head{
+    display:grid;
+    grid-template-columns: 5fr 7fr;
+    gap:50px;
+    margin-bottom:56px;
+  }
+  @media (max-width:860px){
+    .section-head{ grid-template-columns:1fr; gap:24px; }
+  }
+  .section-head h2{ font-size:clamp(1.9rem, 3.4vw, 2.6rem); }
+  .section-head .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    color:var(--brass);
+    display:block;
+    margin-bottom:16px;
+  }
+  .section-paper .tag{ color:var(--rust); }
+  .section-head p{
+    font-size:1.05rem;
+    opacity:0.85;
+    max-width:52ch;
+  }
+
+  .dim-list{
+    display:flex; flex-direction:column;
+    border-top:1px solid var(--hairline-paper);
+  }
+  .dim-row{
+    display:grid;
+    grid-template-columns: 60px 1fr;
+    gap:24px;
+    padding:26px 0;
+    border-bottom:1px solid var(--hairline-paper);
+    align-items:baseline;
+  }
+  .dim-row .num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--brass);
+    font-size:1rem;
+  }
+  .dim-row h4{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+  .dim-row p{ margin:0; opacity:0.78; max-width:60ch; }
+
+  .link-underline{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:36px;
+    font-weight:500;
+    text-decoration:none;
+    border-bottom:1px solid currentColor;
+    padding-bottom:2px;
+  }
+
+  /* ---------- Stat band ---------- */
+  .stat-band{
+    background:var(--steel);
+    padding:80px 0;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:40px;
+  }
+  @media (max-width:760px){
+    .stat-grid{ grid-template-columns:1fr; gap:36px; }
+  }
+  .stat{
+    border-top:2px solid var(--brass);
+    padding-top:20px;
+  }
+  .stat .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:2.6rem;
+    color:var(--gauge-white);
+    display:block;
+  }
+  .stat .cap{
+    margin-top:10px;
+    font-size:0.92rem;
+    opacity:0.66;
+    max-width:32ch;
+  }
+
+  /* ---------- Video teaser ---------- */
+  .video-section .wrap{
+    display:grid;
+    grid-template-columns: 5fr 7fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media (max-width:900px){
+    .video-section .wrap{ grid-template-columns:1fr; }
+  }
+  .video-panel{
+    position:relative;
+    border-radius:4px;
+    overflow:hidden;
+    border:1px solid var(--hairline);
+    background:var(--steel);
+    aspect-ratio:16/9;
+  }
+  .video-panel::before{
+    /* bezel corner ticks, echoes an instrument panel */
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid rgba(232,228,216,0.18);
+    pointer-events:none;
+    border-radius:2px;
+  }
+  .video-panel img{
+    width:100%; height:100%; object-fit:cover; opacity:0.55;
+  }
+  .play-btn{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:74px; height:74px; border-radius:50%;
+    background:var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    border:none;
+  }
+  .play-btn svg{ margin-left:4px; }
+  .video-copy .tag{ color:var(--brass); font-family:'IBM Plex Mono', monospace; font-size:0.8rem; }
+  .video-copy h2{ margin-top:16px; font-size:clamp(1.8rem,3vw,2.3rem); max-width:14ch; }
+  .video-copy p{ margin-top:18px; opacity:0.8; max-width:48ch; }
+
+  /* ---------- Closing CTA ---------- */
+  .closing{
+    padding:110px 0;
+    text-align:left;
+    border-top:1px solid var(--hairline);
+  }
+  .closing h2{ font-size:clamp(2rem,4vw,3rem); max-width:16ch; }
+  .closing .cta-row{ margin-top:36px; }
+
+  /* ---------- Footer / title block stamp ---------- */
+  footer{
+    border-top:1px solid var(--hairline);
+    padding:28px 0;
+  }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:14px;
+  }
+  .stamp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.76rem;
+    letter-spacing:0.03em;
+    opacity:0.6;
+    border:1px solid var(--hairline);
+    padding:6px 12px;
+    border-radius:2px;
+  }
+  .footer-links{ display:flex; gap:22px; }
+  .footer-links a{ text-decoration:none; font-size:0.85rem; opacity:0.6; }
+  .footer-links a:hover{ opacity:1; }
+
+  ::selection{ background:var(--brass); color:var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-inner">
+    <a class="brandmark" href="#top"><span class="dot"></span>R. OLOYEDE</a>
+    <nav>
+      <ul>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#speaking">Speaking</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <a class="btn-ghost nav-cta" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow-line"><span class="rule"></span><span>PHYSICAL ASSET MANAGEMENT · UPSTREAM OIL &amp; GAS</span></div>
+        <h1>Building the case for asset management, reimagined for indigenous operators.</h1>
+        <p class="lede">Dr. Robert Oloyede is Deputy Group Managing Director at Divcon Group and author of the Six-Dimensional Framework for Physical Asset Management — a practical roadmap for operators inheriting ageing, high-risk infrastructure.</p>
+        <p class="hero-role mono">DBA · MBA (Lagos Business School) · MNSE · R.Eng</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#framework">Read the framework</a>
+          <a class="btn btn-ghost" href="#about">Watch the interview</a>
+        </div>
+      </div>
+      <div id="hero-canvas-wrap"></div>
+    </div>
+  </section>
+
+  <!-- CREDIBILITY STRIP -->
+  <div class="strip">
+    <div class="wrap strip-inner">
+      <span>DIVCON GROUP</span>
+      <span>IAM · INSTITUTE OF ASSET MANAGEMENT</span>
+      <span>NOG ENERGY WEEK</span>
+      <span>LAGOS BUSINESS SCHOOL</span>
+      <span>COREN · R.ENG</span>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK TEASER -->
+  <section class="section section-paper" id="framework">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="tag">ORIGINAL RESEARCH</span>
+          <h2>The Six-Dimensional Framework</h2>
+        </div>
+        <p>Presented at the IAM North American Conference 2025 (Montreal) and NOG Energy Week 2026, the framework argues that indigenous operators can't simply copy multinational asset-management playbooks — their financial, infrastructural, and security realities are different, and the framework is built for that reality. <strong>[Client: replace this and the rows below with the six named dimensions from your paper.]</strong></p>
+        </div>
+
+      <div class="dim-list">
+        <div class="dim-row">
+          <span class="num mono">01</span>
+          <div><h4>Human capital &amp; tacit knowledge</h4><p>The greatest asset is not physical — it's the accumulated knowledge of veteran engineers, and protecting it is a management discipline in its own right.</p></div>
+        </div>
+        <div class="dim-row">
+          <span class="num mono">02</span>
+          <div><h4>Knowledge transfer during divestment</h4><p>Technical documentation, operating history, and mentorship should move with the asset when multinationals hand over to indigenous operators.</p></div>
+        </div>
+        <div class="dim-row">
+          <span class="num mono">03</span>
+          <div><h4>Security &amp; asset integrity</h4><p>Vandalism, crude theft, and illegal bunkering are treated as a core asset-management risk, not a separate security problem.</p></div>
+        </div>
+        <div class="dim-row">
+          <span class="num mono">04</span>
+          <div><h4>Standards alignment (ISO 55000/55001)</h4><p>A phased, realistic pathway to international standards compliance, tied to regulatory incentives rather than imposed wholesale.</p></div>
+        </div>
+        <div class="dim-row">
+          <span class="num mono">05</span>
+          <div><h4>Financial &amp; resource constraints</h4><p>Practices calibrated to the capital realities of indigenous operators, not the balance sheets of multinationals.</p></div>
+        </div>
+        <div class="dim-row">
+          <span class="num mono">06</span>
+          <div><h4>Technology integration</h4><p>Closing the gap between legacy infrastructure and modern asset-management information systems.</p></div>
+        </div>
+      </div>
+
+      <a class="link-underline" href="#" style="color:var(--ink);">Read the full framework page →</a>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="stat-band" id="experience">
+    <div class="wrap stat-grid">
+      <div class="stat">
+        <span class="num mono">40–60 yrs</span>
+        <span class="cap">Average age of infrastructure inherited by indigenous operators from multinational divestments.</span>
+      </div>
+      <div class="stat">
+        <span class="num mono">40–97%</span>
+        <span class="cap">Production lost by some operators to pipeline vandalism, crude theft, and illegal bunkering.</span>
+      </div>
+      <div class="stat">
+        <span class="num mono">ISO 55000</span>
+        <span class="cap">The international asset-management standard Dr. Oloyede advocates phasing into licence renewal requirements.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO / ABOUT TEASER -->
+  <section class="section video-section" id="about">
+    <div class="wrap">
+      <div class="video-panel">
+        <!-- Client: swap the poster image and wire the play button to the real video (YouTube/Vimeo/self-hosted) -->
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop" alt="Dr. Robert Oloyede video placeholder" />
+        <button class="play-btn" aria-label="Play video">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3L17 10L5 17V3Z" fill="#0E1414"/></svg>
+        </button>
+      </div>
+      <div class="video-copy">
+        <span class="tag">40 UNDER 40 · STOCEXPO</span>
+        <h2>Recognized as a rising leader in physical asset management.</h2>
+        <p>From well engineer to Deputy Group Managing Director — an inside look at how Dr. Oloyede built a career on the operational realities of running ageing, high-stakes infrastructure across Nigeria's oil and gas sector.</p>
+        <a class="link-underline" href="#speaking">More on his research and speaking →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="closing" id="speaking">
+    <div class="wrap">
+      <span class="eyebrow-line"><span class="rule"></span><span class="mono" style="color:var(--brass-light);">SPEAKING &amp; ADVISORY</span></span>
+      <h2 style="margin-top:20px;">Available for conferences, panels, and operator advisory work.</h2>
+      <div class="cta-row" id="contact">
+        <a class="btn btn-primary" href="mailto:contact@example.com">Book Dr. Oloyede</a>
+        <a class="btn btn-ghost" href="#framework">View his research</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="stamp">R.ENG · MNSE · DBA — DIVCON GROUP</span>
+    <div class="footer-links">
+      <a href="#">LinkedIn</a>
+      <a href="mailto:contact@example.com">Email</a>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ THREE.JS: floating instrument icons ============ -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+
+const mount = document.getElementById("hero-canvas-wrap");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (mount && !prefersReducedMotion) {
+  const width = mount.clientWidth;
+  const height = mount.clientHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+  camera.position.set(0, 0, 9);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  mount.appendChild(renderer.domElement);
+
+  // Lighting — warm brass key + cool rim, matches the instrument-panel palette
+  const key = new THREE.DirectionalLight(0xd2a65c, 2.2);
+  key.position.set(3, 4, 5);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0x6fa3a8, 1.1);
+  rim.position.set(-4, -2, -3);
+  scene.add(rim);
+  scene.add(new THREE.AmbientLight(0x334040, 0.6));
+
+  const brassMat = new THREE.MeshStandardMaterial({ color: 0xB8863B, metalness: 0.85, roughness: 0.32 });
+  const steelMat = new THREE.MeshStandardMaterial({ color: 0x3A4547, metalness: 0.7, roughness: 0.4 });
+  const darkMat  = new THREE.MeshStandardMaterial({ color: 0x1B2426, metalness: 0.5, roughness: 0.55 });
+
+  // --- Object 1: Pressure gauge (torus bezel + disc face + needle) ---
+  const gauge = new THREE.Group();
+  const bezel = new THREE.Mesh(new THREE.TorusGeometry(1, 0.14, 24, 48), brassMat);
+  gauge.add(bezel);
+  const face = new THREE.Mesh(new THREE.CircleGeometry(0.86, 48), darkMat);
+  face.position.z = 0.05;
+  gauge.add(face);
+  const needle = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.7, 8), new THREE.MeshStandardMaterial({ color: 0xC4571E, metalness: 0.6, roughness: 0.3 }));
+  needle.position.set(0, 0.3, 0.12);
+  needle.rotation.z = -0.6;
+  gauge.add(needle);
+  gauge.position.set(-1.6, 1.1, 0);
+  gauge.scale.setScalar(0.9);
+  scene.add(gauge);
+
+  // --- Object 2: Pipeline gate valve (cylinder body + flanges + wheel) ---
+  const valve = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 1.4, 24), steelMat);
+  body.rotation.z = Math.PI / 2;
+  valve.add(body);
+  const flangeGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.12, 24);
+  const flangeL = new THREE.Mesh(flangeGeo, steelMat); flangeL.rotation.z = Math.PI / 2; flangeL.position.x = -0.7;
+  const flangeR = new THREE.Mesh(flangeGeo, steelMat); flangeR.rotation.z = Math.PI / 2; flangeR.position.x = 0.7;
+  valve.add(flangeL, flangeR);
+  const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 12), brassMat);
+  stem.position.y = 0.4;
+  valve.add(stem);
+  const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.05, 12, 24), brassMat);
+  wheel.position.y = 0.7;
+  valve.add(wheel);
+  valve.position.set(1.7, -0.9, -1);
+  valve.rotation.set(0.3, 0.6, 0.1);
+  valve.scale.setScalar(0.95);
+  scene.add(valve);
+
+  // --- Object 3: Engineer's seal medallion (thin cylinder disc, background) ---
+  const seal = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.08, 32), brassMat);
+  seal.position.set(0.4, 1.6, -2.4);
+  seal.rotation.x = Math.PI / 2.3;
+  scene.add(seal);
+
+  const objects = [
+    { mesh: gauge, base: gauge.position.clone(), speed: 0.6, amp: 0.16, rotSpeed: 0.15 },
+    { mesh: valve, base: valve.position.clone(), speed: 0.45, amp: 0.14, rotSpeed: 0.1 },
+    { mesh: seal,  base: seal.position.clone(),  speed: 0.35, amp: 0.1,  rotSpeed: 0.05 },
+  ];
+
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener("mousemove", (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5);
+    mouseY = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  const clock = new THREE.Clock();
+  let visible = true;
+  const io = new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting;
+  });
+  io.observe(mount);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!visible) return;
+    const t = clock.getElapsedTime();
+    objects.forEach((o, i) => {
+      o.mesh.position.y = o.base.y + Math.sin(t * o.speed + i) * o.amp;
+      o.mesh.rotation.y += o.rotSpeed * 0.01;
+    });
+    camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.03;
+    camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.03;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener("resize", () => {
+    const w = mount.clientWidth, h = mount.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+} else if (mount) {
+  // Reduced-motion fallback: static SVG line-art of the same gauge + valve
+  mount.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;opacity:0.5;">
+    <svg width="180" height="180" viewBox="0 0 100 100" fill="none" stroke="#B8863B" stroke-width="2">
+      <circle cx="50" cy="50" r="34"/><line x1="50" y1="50" x2="66" y2="34"/>
+    </svg>
+  </div>`;
+}
+</script>
+
+</body>
+</html>
