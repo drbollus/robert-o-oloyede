@@ -21,7 +21,7 @@ const NAV_LINKS = [
 ];
 
 const CONTACT = {
-  email: "contact@example.com",       // TODO: replace with Dr. Oloyede's real contact email
+  email: "tayo.robert@gmail.com",       // TODO: replace with Dr. Oloyede's real contact email
   linkedin: "https://www.linkedin.com/in/robert-oloyede-mba-mnse-r-eng-a0519724/",
 };
 
