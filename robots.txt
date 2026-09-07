@@ -1,0 +1,5 @@
+# Update the Sitemap URL below if the domain changes from https://robertoloyede.com
+User-agent: *
+Allow: /
+
+Sitemap: https://robertoloyede.com/sitemap.xml

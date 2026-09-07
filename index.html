@@ -6,6 +6,21 @@
 <title>Dr. Robert Oloyede — Physical Asset Management</title>
 <meta name="description" content="Dr. Robert Oloyede, DBA — Deputy Group Managing Director, Divcon Group. Author of the Six-Dimensional Framework for Physical Asset Management in Nigeria's upstream oil & gas sector." />
 
+<!-- Canonical + Open Graph / Twitter — update BASE_URL sitewide by find-replacing "https://robertoloyede.com" -->
+<link rel="canonical" href="https://robertoloyede.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Dr. Robert Oloyede" />
+<meta property="og:title" content="Dr. Robert Oloyede — Physical Asset Management" />
+<meta property="og:description" content="Dr. Robert Oloyede, DBA — Deputy Group Managing Director, Divcon Group. Author of the Six-Dimensional Framework for Physical Asset Management in Nigeria's upstream oil & gas sector." />
+<meta property="og:url" content="https://robertoloyede.com/" />
+<meta property="og:image" content="https://robertoloyede.com/assets/og/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Dr. Robert Oloyede — Physical Asset Management" />
+<meta name="twitter:description" content="Dr. Robert Oloyede, DBA — Deputy Group Managing Director, Divcon Group. Author of the Six-Dimensional Framework for Physical Asset Management in Nigeria's upstream oil & gas sector." />
+<meta name="twitter:image" content="https://robertoloyede.com/assets/og/og-image.png" />
+
 <!-- Fonts: Fraunces (display), Inter (body), IBM Plex Mono (data) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -192,7 +207,7 @@
 <!-- Shared nav: defines <site-header> / <site-footer> used above -->
 <script src="assets/js/nav.js" defer></script>
 
-<!-- ============ THREE.JS: floating instrument icons ============ -->
+<!-- ============ 3D floating instrument icons (shared module) ============ -->
 <script type="importmap">
 {
   "imports": {
@@ -201,126 +216,16 @@
 }
 </script>
 <script type="module">
-import * as THREE from "three";
+import { mountInstruments } from "./assets/js/instruments.js";
 
-const mount = document.getElementById("hero-canvas-wrap");
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-if (mount && !prefersReducedMotion) {
-  const width = mount.clientWidth;
-  const height = mount.clientHeight;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-  camera.position.set(0, 0, 9);
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  mount.appendChild(renderer.domElement);
-
-  // Lighting — warm brass key + cool rim, matches the instrument-panel palette
-  const key = new THREE.DirectionalLight(0xd2a65c, 2.2);
-  key.position.set(3, 4, 5);
-  scene.add(key);
-  const rim = new THREE.DirectionalLight(0x6fa3a8, 1.1);
-  rim.position.set(-4, -2, -3);
-  scene.add(rim);
-  scene.add(new THREE.AmbientLight(0x334040, 0.6));
-
-  const brassMat = new THREE.MeshStandardMaterial({ color: 0xB8863B, metalness: 0.85, roughness: 0.32 });
-  const steelMat = new THREE.MeshStandardMaterial({ color: 0x3A4547, metalness: 0.7, roughness: 0.4 });
-  const darkMat  = new THREE.MeshStandardMaterial({ color: 0x1B2426, metalness: 0.5, roughness: 0.55 });
-
-  // --- Object 1: Pressure gauge (torus bezel + disc face + needle) ---
-  const gauge = new THREE.Group();
-  const bezel = new THREE.Mesh(new THREE.TorusGeometry(1, 0.14, 24, 48), brassMat);
-  gauge.add(bezel);
-  const face = new THREE.Mesh(new THREE.CircleGeometry(0.86, 48), darkMat);
-  face.position.z = 0.05;
-  gauge.add(face);
-  const needle = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.7, 8), new THREE.MeshStandardMaterial({ color: 0xC4571E, metalness: 0.6, roughness: 0.3 }));
-  needle.position.set(0, 0.3, 0.12);
-  needle.rotation.z = -0.6;
-  gauge.add(needle);
-  gauge.position.set(-1.6, 1.1, 0);
-  gauge.scale.setScalar(0.9);
-  scene.add(gauge);
-
-  // --- Object 2: Pipeline gate valve (cylinder body + flanges + wheel) ---
-  const valve = new THREE.Group();
-  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 1.4, 24), steelMat);
-  body.rotation.z = Math.PI / 2;
-  valve.add(body);
-  const flangeGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.12, 24);
-  const flangeL = new THREE.Mesh(flangeGeo, steelMat); flangeL.rotation.z = Math.PI / 2; flangeL.position.x = -0.7;
-  const flangeR = new THREE.Mesh(flangeGeo, steelMat); flangeR.rotation.z = Math.PI / 2; flangeR.position.x = 0.7;
-  valve.add(flangeL, flangeR);
-  const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 12), brassMat);
-  stem.position.y = 0.4;
-  valve.add(stem);
-  const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.32, 0.05, 12, 24), brassMat);
-  wheel.position.y = 0.7;
-  valve.add(wheel);
-  valve.position.set(1.7, -0.9, -1);
-  valve.rotation.set(0.3, 0.6, 0.1);
-  valve.scale.setScalar(0.95);
-  scene.add(valve);
-
-  // --- Object 3: Engineer's seal medallion (thin cylinder disc, background) ---
-  const seal = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.08, 32), brassMat);
-  seal.position.set(0.4, 1.6, -2.4);
-  seal.rotation.x = Math.PI / 2.3;
-  scene.add(seal);
-
-  const objects = [
-    { mesh: gauge, base: gauge.position.clone(), speed: 0.6, amp: 0.16, rotSpeed: 0.15 },
-    { mesh: valve, base: valve.position.clone(), speed: 0.45, amp: 0.14, rotSpeed: 0.1 },
-    { mesh: seal,  base: seal.position.clone(),  speed: 0.35, amp: 0.1,  rotSpeed: 0.05 },
-  ];
-
-  let mouseX = 0, mouseY = 0;
-  window.addEventListener("mousemove", (e) => {
-    mouseX = (e.clientX / window.innerWidth - 0.5);
-    mouseY = (e.clientY / window.innerHeight - 0.5);
-  });
-
-  const clock = new THREE.Clock();
-  let visible = true;
-  const io = new IntersectionObserver((entries) => {
-    visible = entries[0].isIntersecting;
-  });
-  io.observe(mount);
-
-  function animate() {
-    requestAnimationFrame(animate);
-    if (!visible) return;
-    const t = clock.getElapsedTime();
-    objects.forEach((o, i) => {
-      o.mesh.position.y = o.base.y + Math.sin(t * o.speed + i) * o.amp;
-      o.mesh.rotation.y += o.rotSpeed * 0.01;
-    });
-    camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.03;
-    camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.03;
-    camera.lookAt(0, 0, 0);
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener("resize", () => {
-    const w = mount.clientWidth, h = mount.clientHeight;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
-} else if (mount) {
-  // Reduced-motion fallback: static SVG line-art of the same gauge + valve
-  mount.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;opacity:0.5;">
-    <svg width="180" height="180" viewBox="0 0 100 100" fill="none" stroke="#B8863B" stroke-width="2">
-      <circle cx="50" cy="50" r="34"/><line x1="50" y1="50" x2="66" y2="34"/>
-    </svg>
-  </div>`;
-}
+mountInstruments("hero-canvas-wrap", {
+  parallax: true,
+  objects: [
+    { type: "gauge", position: [-1.6, 1.1, 0],   scale: 0.9,  speed: 0.6,  amp: 0.16, rotSpeed: 0.15 },
+    { type: "valve", position: [1.7, -0.9, -1],  scale: 0.95, speed: 0.45, amp: 0.14, rotSpeed: 0.1 },
+    { type: "seal",  position: [0.4, 1.6, -2.4], scale: 1,    speed: 0.35, amp: 0.1,  rotSpeed: 0.05 },
+  ],
+});
 </script>
 
 </body>
