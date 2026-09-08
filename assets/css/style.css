@@ -161,8 +161,12 @@ nav a[aria-current="page"]{ opacity:1; border-bottom:1px solid var(--brass); pad
 .stat .cap{ margin-top:10px; font-size:0.92rem; opacity:0.66; max-width:32ch; }
 
 /* ---------- Video panel ---------- */
-.video-section .wrap{ display:grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap:56px; align-items:center; }
-.video-panel iframe{ display:block; width:100%; height:100%; border:0; position:relative; z-index:1; }
+.video-section .wrap{ display:grid; grid-template-columns: 5fr 7fr; gap:56px; align-items:center; }
+@media (max-width:900px){ .video-section .wrap{ grid-template-columns:1fr; } }
+.video-panel{
+  position:relative; border-radius:4px; overflow:hidden; border:1px solid var(--hairline);
+  background:var(--steel); aspect-ratio:16/9;
+}
 .video-panel::before{
   content:""; position:absolute; inset:10px; border:1px solid rgba(232,228,216,0.18);
   pointer-events:none; border-radius:2px;
