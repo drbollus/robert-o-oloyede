@@ -229,5 +229,28 @@ mountInstruments("hero-canvas-wrap", {
 });
 </script>
 
+<!-- ============ Video embed: click-to-load Facebook Video Plugin ============ -->
+<script>
+  const FB_VIDEO_URL = "https://www.facebook.com/StocExpo/videos/stocexpo-forty-under-40-robert-oloyede-divcon-group-inc/1113171006137687/";
+
+  const indexPlayBtn = document.getElementById("index-video-play");
+  const indexPanel = document.getElementById("index-video-panel");
+  const indexPoster = document.getElementById("index-video-poster");
+
+  indexPlayBtn.addEventListener("click", () => {
+    const encodedUrl = encodeURIComponent(FB_VIDEO_URL);
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.facebook.com/plugins/video.php?href=${encodedUrl}&show_text=false&t=0`;
+    iframe.title = "Dr. Robert Oloyede — StocExpo 40 Under 40";
+    iframe.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    iframe.style.overflow = "hidden";
+    iframe.scrolling = "no";
+    indexPoster.remove();
+    indexPlayBtn.remove();
+    indexPanel.appendChild(iframe);
+  });
+</script>
+
 </body>
 </html>
