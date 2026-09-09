@@ -90,6 +90,7 @@ nav a[aria-current="page"]{ opacity:1; border-bottom:1px solid var(--brass); pad
 
 @media (max-width:860px){
   nav ul{ display:none; }
+  .nav-cta{ display:none; }
   .nav-toggle{ display:flex; }
 }
 
