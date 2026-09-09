@@ -172,7 +172,7 @@ nav a[aria-current="page"]{ opacity:1; border-bottom:1px solid var(--brass); pad
   pointer-events:none; border-radius:2px;
 }
 .video-panel img{ width:100%; height:100%; object-fit:cover; opacity:0.55; }
-.video-panel iframe{ width:100%; height:100%; border:0; position:relative; z-index:1; }
+.video-panel iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; z-index:1; }
 .play-btn{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:74px; height:74px; border-radius:50%; background:var(--brass);
